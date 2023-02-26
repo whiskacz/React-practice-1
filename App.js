@@ -1,34 +1,42 @@
-class Message extends React.Component {
-constructor(props){
-    super(props);
-    this.state = {
-        messgaeIsActive: false
-    }
-    this.handleMessageButton = this.handleMessageButton.bind(this)
-}   
-
-handleMessageButton(){
-    this.setState({
-
-        messgaeIsActive: !this.state.messgaeIsActive
-    })
+class CounterApp extends React.Component{
+state = {
+    count: 0,
+    score: 0,
 }
 
+calculator(type, number){
+    if(type === "addition"){
+        this.setState(prevState =>({
+            count : prevState.count + number,
+            score : prevState.score + number,
+    }))}
+        
+    else if(type === "subtraction"){
+        this.setState(prevState =>({
+            count : prevState.count + number,
+            score : prevState.score - number,
+}))}  
+    else {
+        this.setState(prevState =>({
+            count : prevState.count + number,
+            score : 0,
+        }
+
+        ))
+    }
+
+        }
 render(){
-    console.log(this.state.messgaeIsActive)
-    const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere dicta rerum perferendis ex nihil sapiente delectus ipsum quae ducimus minus hic nulla, nobis quod tempore esse pariatur quidem voluptas necessitatibus?'
-
-
     return(
-        <React.Fragment>
-            <button onClick={this.handleMessageButton}>{this.state.messgaeIsActive? "Ukryj": "Pokaż"}</button>
-            <p>{this.state.messgaeIsActive && text}</p>
-        </React.Fragment>
+        <>
+        <button onClick = {this.calculator.bind(this, "addition", 1)}>+1</button>
+        <button onClick = {this.calculator.bind(this, "subtraction", 1)}>-1</button>
+        <button onClick = {this.calculator.bind(this, "reset", 0)}>RESET</button>
+        <p>LICZNIK : {this.state.count}</p>
+        <p>WYNIK : {this.state.score}</p>   
+        </>
     )
 }
 
-
-
 }
-
-ReactDOM.render(<Message />, document.getElementById("root"))
+ReactDOM.render(<CounterApp />, document.getElementById("root"))
