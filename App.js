@@ -1,31 +1,34 @@
-class App extends React.Component {
-    state = {
-        value:""
+class Message extends React.Component {
+constructor(props){
+    super(props);
+    this.state = {
+        messgaeIsActive: false
     }
+    this.handleMessageButton = this.handleMessageButton.bind(this)
+}   
 
-    handleInputChange = (e) => {
-        console.log(e.target.value)
-        this.setState({
-            value: e.target.value
-        })
-    }
-    resetButton = () => {
-        this.setState({
-            value: ""
-        })
-    }
+handleMessageButton(){
+    this.setState({
 
-    render(){
-        return(
-            <React.Fragment>
-                <input value={this.state.value} placeholder="wpisz" onChange={this.handleInputChange} type="text" />
-                <button onClick = {this.resetButton}>Reset</button>
-                <h1 className="title">{this.state.value}</h1>
-            </React.Fragment>
-
-
-        )
-    }    
+        messgaeIsActive: !this.state.messgaeIsActive
+    })
 }
 
-ReactDOM.render(<App/>, document.getElementById("root"))
+render(){
+    console.log(this.state.messgaeIsActive)
+    const text = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere dicta rerum perferendis ex nihil sapiente delectus ipsum quae ducimus minus hic nulla, nobis quod tempore esse pariatur quidem voluptas necessitatibus?'
+
+
+    return(
+        <React.Fragment>
+            <button onClick={this.handleMessageButton}>{this.state.messgaeIsActive? "Ukryj": "Pokaż"}</button>
+            <p>{this.state.messgaeIsActive && text}</p>
+        </React.Fragment>
+    )
+}
+
+
+
+}
+
+ReactDOM.render(<Message />, document.getElementById("root"))
